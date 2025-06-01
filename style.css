@@ -1,0 +1,103 @@
+body {
+    background-color: #F2ECE6;
+    font-family: "Jacques Francois", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+*{
+    font-family: "Jacques Francois", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.heading-bar{
+    border-bottom: 2px solid gray;
+    display: flex;
+}
+
+h1{
+    text-align: center;
+    margin-left: auto;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+}
+
+#item-entry{
+    display:none;
+    padding: 1px 10px 1px 10px;
+    margin: 3px 4px 3px 4px;
+}
+
+#entry-text{
+    margin-left:0px;
+}
+.checkboxes{
+    margin-right: 7px;
+}
+
+ul{
+    list-style: none;
+    font-size: 20px;
+    padding: 1px 10px 1px 10px;
+    margin: 3px 4px 3px 4px;
+}
+
+li{
+    list-style: none;
+    font-size: 20px;
+}
+
+span {
+    position: absolute;
+    margin-left: 200px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+span:hover{
+    color: #F2ECE6;
+    background-color: black;
+}
+
+li:hover{
+    text-shadow: 2px 2px 8px gray;
+}
+
+#plus-grid {
+    margin-inline-start: auto;
+}
+
+input{
+    border: none;
+    /* border-bottom: dotted gray 3px; */
+    outline: none;
+    background: #E2D0BC;
+    padding: 1px 0px 1px 10px;
+    margin: 3px 4px 3px 4px;
+}
+
+#list-header{
+    display: flex;
+    width: 300px;
+    background-color: #E2D0BC;
+}
+h3 {
+    flex: .5;
+    margin-inline-start: auto;
+}
+
+#list-options {
+    margin-left: auto;
+    margin-inline-end: auto;
+}
+
+.list {
+    background-color: #EAE0D4;
+    width: 300px;
+    height: 80vh;
+}
