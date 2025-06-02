@@ -3,7 +3,10 @@ const newGrid = document.getElementById("plus-grid");
 const container = document.getElementById("container");
 const item_entry = document.getElementById("item-entry");
 const item_input = document.getElementById("entry-text");
+const listReset = document.getElementById("reset-grid");
+const deleteGrid = document.getElementById("delete-grid");
 const list = document.getElementById("main-list");
+const testButton = document.getElementById("test-button")
 
 var input_open = 0;
 let todos = getFromLocalStorage();
@@ -16,6 +19,15 @@ newItem.addEventListener("click", (event) => {
         input_open=1;
     }
 })
+
+testButton.addEventListener("click", printToDos);
+
+function printToDos(){
+    console.log(todos);
+}
+
+listReset.addEventListener("click", resetCompletes);
+deleteGrid.addEventListener("click", deleteAllItems);
 
 item_input.addEventListener("keyup", function(e) {
     if (e.key == "Enter") {
@@ -53,7 +65,6 @@ list.addEventListener("click", function(e){
 //this function creates the to do item and stores it to local storage
 function addItem(to_do_task){
     const todo = {
-        id: Date.now(),
         name: to_do_task,
         completed: false
     };
@@ -106,11 +117,22 @@ function toggleCheck(name) {
             
         }
     })
-    
+    addToLocalStorage();
 }
 
 function resetCompletes() {
+    console.log('reset');
+    todos.forEach((todo, todoIndex) => {
+        todo.completed = false;
+    })
+    addToLocalStorage();
+    updateList();
+}
 
+function deleteAllItems(){
+    todos=[];
+    addToLocalStorage();
+    updateList();
 }
 
 //local storage functions
