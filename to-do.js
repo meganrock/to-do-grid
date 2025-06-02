@@ -6,7 +6,8 @@ const item_input = document.getElementById("entry-text");
 const list = document.getElementById("main-list");
 
 var input_open = 0;
-let todos = [];
+let todos = getFromLocalStorage();
+updateList();
 
 
 newItem.addEventListener("click", (event) => { 
@@ -23,7 +24,6 @@ item_input.addEventListener("keyup", function(e) {
         }
         else if (item_input.value != ""){
             addItem(item_input.value);
-            displayItem(item_input.value);
         }                                        
     }
     else if (e.key == "Escape") {
@@ -40,76 +40,87 @@ list.addEventListener("click", function(e){
     }
     else if (e.target.tagName == "SPAN"){
         e.target.parentElement.remove();
+        console.log(e.target.parentElement);
+        todos.splice(e.target.parentElement.id, 1);
+        addToLocalStorage();
+        updateList();
     }
     else if (e.target.type == "checkbox"){
-        toggleCheck();
+        toggleCheck(e.target.parentElement.id);
     }
 })
 
 //this function creates the to do item and stores it to local storage
 function addItem(to_do_task){
-    //add this to do task to the to do array
     const todo = {
-        id: Date.now,
+        id: Date.now(),
         name: to_do_task,
         completed: false
     };
     todos.push(todo);
+    updateList();
     console.log(todos);
-    addToLocalStorage(todos);
-}
-
-//this function adds the to do item to the web page
-function displayItem(to_do_task){
-    var list_item = document.createElement("li");
-    
-    //add checkbox
-    var check = document.createElement("input");
-    check.type = "checkbox";
-    check.className = "checkboxes"
-    check.addEventListener("change", toggleCheck());
-
-    //add text
-    var textNode = document.createTextNode(to_do_task);
-
-    //add delete dash
-    span = document.createElement("span");
-    span.innerHTML = "&#x2013";
-
-    //append everything to the list item
-    list_item.appendChild(check);
-    list_item.appendChild(span);
-    list_item.appendChild(textNode);
-
-    //append the list item to the list
-    list.appendChild(list_item);
-
-    //clear the input bar
+    addToLocalStorage();
     item_input.value = ""; 
 }
 
 
-function toggleCheck(name) {
-    todos.forEach(function(item) {
-        if (item.name == name) {
-            item.completed = !item.completed;
+function updateList(){
+    list.innerHTML = "";
+    todos.forEach((todo, todoIndex) => {
+        const todoID = todoIndex;
+        var listItem = document.createElement("li");
+        listItem.setAttribute('id', todoID);
+        var check = document.createElement("input");
+        check.type = "checkbox";
+        if (todo.completed == true){
+            check.checked = true;
         }
-    });
-    addToLocalStorage(todos);
+
+        //add text
+        var textNode = document.createTextNode(todo.name);
+
+        //add delete dash
+        span = document.createElement("span");
+        span.innerHTML = "&#x2013";
+
+        //append everything to the list item
+        listItem.appendChild(check);
+        listItem.appendChild(span);
+        listItem.appendChild(textNode);
+
+        //append the list item to the list
+        list.appendChild(listItem);
+    })
+
+
 }
 
 
-//local storage functions
-function addToLocalStorage(todos){
-    localStorage.setItem('todos', JSON.stringify(todos));
+function toggleCheck(name) {
+    todos.forEach((todo, todoIndex) => {
+        if (todo.completed == false) {
+            if (name == todoIndex){
+                todo.completed = true;
+            }
+            
+        }
+    })
+    
+}
 
+function resetCompletes() {
+
+}
+
+//local storage functions
+function addToLocalStorage(){
+    localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 function getFromLocalStorage(){
-    const reference = localStorage.getItem('todos');
-    if (reference){
-        todos = JSON.parse(reference);
-    }
+    const todos = localStorage.getItem('todos') || '[]';
+    return JSON.parse(todos);
 }
 
 
