@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #F2ECE6;
     font-family: "Jacques Francois", serif;
@@ -11,8 +15,13 @@ body {
     font-style: normal;
 }
 
-.heading-bar{
+header {
     border-bottom: 2px solid gray;
+    padding: 0px 0px 0px 0px;
+    display: flex;
+}
+
+.grid-space{
     display: flex;
 }
 
@@ -25,6 +34,8 @@ img {
     width: 50px;
     height: 50px;
 }
+
+
 
 #item-entry{
     display:none;
@@ -64,8 +75,9 @@ span:hover{
     background-color: black;
 }
 
-li:hover{
+h3:hover{
     text-shadow: 2px 2px 8px gray;
+    background-color: #E2D0BC;
 }
 
 #plus-grid {
@@ -96,8 +108,35 @@ h3 {
     margin-inline-end: auto;
 }
 
-.list {
+.list, .biglist {
     background-color: #EAE0D4;
-    width: 300px;
+    width: 18vw;
     height: 80vh;
+    border: 3px solid black;
+    padding: 5px;
+    margin:3px;
+}
+
+
+#main-grid-space {
+    padding: 5px;
+}
+
+.biglist {
+    order: 1;
+    flex: 1;
+}
+
+.list{
+    flex-shrink: 1;
+}
+
+
+#second-flex{
+    width:80vw;
+    height:80vh;
+    display: flex;
+    order: 2;
+    flex: 4;
+    flex-wrap: wrap;
 }

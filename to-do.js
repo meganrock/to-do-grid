@@ -1,11 +1,11 @@
-const newItem = document.getElementById("plus-item");
+const newItem = document.getElementById("plus-item-0");
 const newGrid = document.getElementById("plus-grid");
-const container = document.getElementById("container");
-const item_entry = document.getElementById("item-entry");
-const item_input = document.getElementById("entry-text");
-const listReset = document.getElementById("reset-grid");
-const deleteGrid = document.getElementById("delete-grid");
-const list = document.getElementById("main-list");
+const container = document.getElementById("container-0");
+const item_entry = document.getElementById("item-entry-0");
+const item_input = document.getElementById("entry-text-0");
+const listReset = document.getElementById("reset-grid-0");
+const deleteGrid = document.getElementById("delete-grid-0");
+const list = document.getElementById("list-0");
 const testButton = document.getElementById("test-button")
 
 var input_open = 0;
@@ -58,6 +58,7 @@ list.addEventListener("click", function(e){
         updateList();
     }
     else if (e.target.type == "checkbox"){
+        console.log('parent element id: ' + e.target.parentElement.id);
         toggleCheck(e.target.parentElement.id);
     }
 })
@@ -104,7 +105,6 @@ function updateList(){
         list.appendChild(listItem);
     })
 
-
 }
 
 
@@ -114,10 +114,14 @@ function toggleCheck(name) {
             if (name == todoIndex){
                 todo.completed = true;
             }
-            
+        }else if (todo.completed == true) {
+        if (name == todoIndex){
+            todo.completed = false;
         }
+    }
     })
     addToLocalStorage();
+    updateList();
 }
 
 function resetCompletes() {
@@ -146,9 +150,6 @@ function getFromLocalStorage(){
 }
 
 
-
-//FOR ADDING NEW GRIDS
-
 //event listener to add a new to do grid (new list)
 newGrid.addEventListener("click", (event) => { 
     createGrid();
@@ -157,9 +158,6 @@ newGrid.addEventListener("click", (event) => {
 function createGrid(){
     console.log("new grid!")
 }
-
-
-
 
 
 

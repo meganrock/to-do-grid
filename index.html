@@ -11,28 +11,30 @@
         
     </head>
     <body>
-        <div class="heading-bar">
+        <header>
             <h1>To Do Grid</h1>
-            <img src="images/plus.png" id="plus-grid">  
-        </div>
-        <div class="list" id="container">
-            <div id="list-header">
-                <h3>All</h3>
-                <div id="list-options">
-                    <img src="images/garbage.jpg" id="delete-grid">
-                    <img src="images/refresh.png" id="reset-grid">
-                    <img src="images/plus.png" id="plus-item">  
-                </div> 
+            <img src="images/plus.png" id="plus-grid">
+        </header>
+        <div class="grid-space" id="main-grid-space">
+            <div class="biglist" id="container-0">
+                <div id="list-header-0">
+                    <h3>Main</h3>
+                    <div id="list-options-0">
+                        <img src="images/garbage.jpg" id="delete-grid-0">
+                        <img src="images/refresh.png" id="reset-grid-0">
+                        <img src="images/plus.png" id="plus-item-0">  
+                    </div> 
+                </div>
+                    <ul id="list-0">
+                    </ul>  
+                    <div id = "item-entry-0">
+                        <input type="checkbox" id="entry-check-0">
+                        <input type="text" id="entry-text-0" autocomplete="off">
+                    </div>  
             </div>
-                <ul id="main-list">
-                   
-                </ul>  
-                <div id = "item-entry">
-                    <input type="checkbox" id="entry-check">
-                    <input type="text" id="entry-text" autocomplete="off">
-                </div>  
+            <div id="second-flex">
+            </div>
         </div>
-        <button id="test-button">Show todos in console</button>
-        <script src="to-do.js" defer></script>
+        <script src="to-do-2.js" defer></script>
     </body>
 </html>
