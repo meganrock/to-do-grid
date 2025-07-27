@@ -13,28 +13,29 @@
     <body>
         <header>
             <h1>To Do Grid</h1>
-            <img src="images/plus.png" id="plus-grid">
+            <img src="images/plus.svg" id="plus-grid">
         </header>
-        <div class="grid-space" id="main-grid-space">
+        <main class="grid-space" id="main-grid-space">
             <div class="biglist" id="container-0">
-                <div id="list-header-0">
-                    <h3>Main</h3>
-                    <div id="list-options-0">
-                        <img src="images/garbage.jpg" id="delete-grid-0">
-                        <img src="images/refresh.png" id="reset-grid-0">
-                        <img src="images/plus.png" id="plus-item-0">  
+                <header id="list-header-0" class="list-header">
+                    <h2>Main</h2>
+                    <div class= 'list-options' id="list-options-0">
+                        <img src="images/garbage.svg" id="delete-grid-0">
+                        <img src="images/refresh.svg" id="reset-grid-0">
+                        <img src="images/hollow-plus.svg" id="plus-item-0">  
                     </div> 
-                </div>
-                    <ul id="list-0">
-                    </ul>  
-                    <div id = "item-entry-0">
-                        <input type="checkbox" id="entry-check-0">
-                        <input type="text" id="entry-text-0" autocomplete="off">
-                    </div>  
+                </header>
+                <ul id="list-0">
+                </ul>  
+                <div id="item-entry-0" class="list-item item-entry">
+                    <input type="checkbox" id="entry-check-0">
+                    <input type="text" id="entry-text-0" autocomplete="off">
+                </div>  
             </div>
             <div id="second-flex">
-            </div>
-        </div>
+            </div>  
+        </main>
+        
         <script src="to-do-2.js" defer></script>
     </body>
 </html>

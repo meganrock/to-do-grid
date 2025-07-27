@@ -1,5 +1,5 @@
 var listCount = 0;
-myDiv = document.getElementById('main-grid-space');
+gridSpace = document.getElementById('main-grid-space');
 addedLists = document.getElementById('second-flex');
 const testButton = document.getElementById("test-button")
 var item_input="";
@@ -42,6 +42,7 @@ class ToDoList {
             var listItem = document.createElement("li");
             listItem.setAttribute('list_id', listNum);
             listItem.setAttribute('todo_id', todoID);
+            listItem.setAttribute('class', 'list-item');
             var check = document.createElement("input");
             check.type = "checkbox";
             check.name = "to-do-check";
@@ -169,20 +170,28 @@ newGrid.addEventListener("click", (event) => {
 function createGrid(){
     listCount=listCount+1;
     current_list_get = listofLists[listCount];
-    list_title = getNameLocalStorage(current_list_get.idNumber);
+    console.log(current_list_get.todos);
+    if (current_list_get.todos.length != 0){
+        console.log('FUll');
+        list_title = getNameLocalStorage(current_list_get.idNumber); 
+    } else if (current_list_get.todos.length == 0){
+        console.log('empty');
+        list_title = "List " + current_list_get.idNumber;
+        addNameLocalStorage(current_list_get.idNumber, list_title);
+    }
     addedLists.insertAdjacentHTML('beforeend', 
         `<div class="list" id="container-${listCount}">
-            <div id="list-header-${listCount}">
-                <h3 id="list-title-${listCount}">${list_title}</h3>
-                <div id="list-options-${listCount}">
-                    <img src="images/garbage.jpg" id="delete-grid-${listCount}">
-                    <img src="images/refresh.png" id="reset-grid-${listCount}">
-                    <img src="images/plus.png" id="plus-item-${listCount}">  
+            <header class="list-header" id="list-header-${listCount}">
+                <h2 id="list-title-${listCount}">${list_title}</h2>
+                <div class= "list-options" id="list-options-${listCount}">
+                    <img src="images/garbage.svg" id="delete-grid-${listCount}">
+                    <img src="images/refresh.svg" id="reset-grid-${listCount}">
+                    <img src="images/hollow-plus.svg" id="plus-item-${listCount}">  
                 </div> 
-            </div>
+            </header>
                 <ul id="list-${listCount}">
                 </ul>  
-                <div id = "item-entry-${listCount}">
+                <div id="item-entry-${listCount}" class="list-item item-entry">
                     <input type="checkbox" id="entry-check-${listCount}">
                     <input type="text" id="entry-text-${listCount}" autocomplete="off">
                 </div>
@@ -191,7 +200,7 @@ function createGrid(){
 }
 
 //functions to handle any click inside of the to do lists
-myDiv.addEventListener('click', function(e) {
+gridSpace.addEventListener('click', function(e) {
     var clickedID = e.target.id;
     var clickedParentID = e.target.parentElement.id;
     listofLists.forEach(element => {
@@ -206,38 +215,44 @@ myDiv.addEventListener('click', function(e) {
     });
 
 
-    if (e.target.tagName == "H3"){
+    if (e.target.tagName == "H2"){
         if (e.target.innerHTML != "Main"){
             current_header=document.getElementById("list-title-"+current_list.idNumber);
             current_header.innerHTML="";
-            current_header.innerHTML= `<input id="temp_list_name-${current_list.idNumber}" type="text" autocomplete="off" placeholder="List Name" autofocus></input>`;
+            current_header.innerHTML= `<input id="temp_list_name-${current_list.idNumber}" class="list-header" type="text" autofocus autocomplete="off" placeholder="Title"></input>`;
             new_name_entry=document.getElementById("temp_list_name-"+current_list.idNumber);
             new_name_entry.addEventListener("keydown", function(e) {
                 if (e.key == "Enter") {
-                    new_name=new_name_entry.value;
-                    current_header.innerHTML="";
-                    current_header.innerHTML=`<h3> ${new_name} </h3>`;
-                    addNameLocalStorage(current_list.idNumber, new_name);
-                    new_name_entry.style.display="none";
-                }   
+                    if (new_name_entry.value == ""){
+                        alert('Enter a title for the list!')
+                    } else if (new_name_entry.value != ""){
+                        new_name=new_name_entry.value;
+                        current_header.innerHTML = new_name;
+                        addNameLocalStorage(current_list.idNumber, new_name);
+                        // new_name_entry.style.display="none";
+                    }
+                    
+                }   else if (e.key == "Escape") {
+                    current_header.innerHTML= getNameLocalStorage(current_list.idNumber);
+                }
             })
         }
     }
     if (e.target.tagName == 'IMG'){
         //if the image clicked is the plus sign
-        if (e.target.src.includes('images/plus.png')){
+        if (e.target.src.includes('images/hollow-plus.svg')){
             if (current_list.input_open == 0){
-                item_entry.style.display="block";
+                console.log(current_list);
+                item_entry.style.display="flex";
                 current_list.input_open=1;
             }else if (current_list.input_open == 1){
             }
         }
         //if the image clicked is the garbage sign 
-        else if (e.target.src.includes('images/garbage.jpg')){
+        else if (e.target.src.includes('images/garbage.svg')){
             current_list.deleteAllItems();
-
         //if the image clicked is the refresh sign 
-        }else if (e.target.src.includes('images/refresh.png')){
+        }else if (e.target.src.includes('images/refresh.svg')){
             current_list.resetCompletes();
         }
     }
@@ -248,8 +263,10 @@ myDiv.addEventListener('click', function(e) {
         item_input.addEventListener("keydown", handleEnter) 
     } 
     else if (e.target.tagName == "SPAN"){
+        console.log(e.target.parentElement.getAttribute('list_id'));
+        console.log(e.target.parentElement);
         e.target.parentElement.remove();
-        current_list.todos.splice(e.target.parentElement.id, 1);
+        current_list.todos.splice(e.target.parentElement.getAttribute('todo_id'), 1);
         addToLocalStorage(current_list.idNumber);
         current_list.updateList(current_list.idNumber);
     } 
@@ -274,5 +291,7 @@ function handleEnter(e){
         to_do_task = "";
     }
 }
+
+
 
 

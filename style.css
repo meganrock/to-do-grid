@@ -1,73 +1,125 @@
+/* generic formatting */
+
 * {
     box-sizing: border-box;
+    font-family: "Jacques Francois", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
 }
 
 body {
     background-color: #F2ECE6;
-    font-family: "Jacques Francois", serif;
-    font-weight: 100;
-    font-style: normal;
 }
 
-*{
-    font-family: "Jacques Francois", serif;
-    font-weight: 100;
-    font-style: normal;
-}
-
-header {
-    border-bottom: 2px solid gray;
-    padding: 0px 0px 0px 0px;
-    display: flex;
+img {
+    width: 25px;
+    height: 25px;
 }
 
 .grid-space{
     display: flex;
+    justify-content: flex-start;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+
+/* header formatting */
+
+header {
+    border-bottom: 2px solid gray;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 h1{
     text-align: center;
-    margin-left: auto;
+    font-size: 36px;
+    margin: 5px 0 5px auto;
 }
 
-img {
-    width: 50px;
-    height: 50px;
+#plus-grid {
+    height:40px;
+    width:40px;
+    margin-inline-start: auto;
+    margin-right: 10px;
+    justify-content: center;
+}
+
+/*individual list formatting */
+
+/* list header*/
+.list-header{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    border-bottom: none; 
 }
 
 
 
-#item-entry{
-    display:none;
-    padding: 1px 10px 1px 10px;
-    margin: 3px 4px 3px 4px;
+
+.list-options{
+    flex:0 0 auto;
+    flex-wrap: nowrap;
+    justify-content: space-around;
 }
 
-#entry-text{
-    margin-left:0px;
+.list-options img {
+    margin: 0 5px;
 }
-.checkboxes{
-    margin-right: 7px;
+
+
+h2 {
+    margin: 10px 0px;
+    font-size: 20px;
 }
+
+
+
+h2:hover:not(:has(input)) {
+    text-shadow: 2px 2px 8px gray;
+    background-color: #E2D0BC;
+}
+
+#list-header-0 > h2:hover{
+    text-shadow: none;
+    background-color: #EAE0D4;
+}
+
+/*list items*/
 
 ul{
-    list-style: none;
-    font-size: 20px;
     padding: 1px 10px 1px 10px;
     margin: 3px 4px 3px 4px;
 }
 
 li{
-    list-style: none;
-    font-size: 20px;
+    list-style: none;    
 }
 
-span {
-    position: absolute;
-    margin-left: 200px;
+
+.list-item {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.item-entry {
+    padding: 1px 10px 1px 10px;
+    margin: 3px 4px 3px 4px;
+}
+
+
+span{
     width: 30px;
     height: 30px;
-    text-align: center;
+    order:2;
+    margin-left: auto;
+    padding: 0px 5px;
+
 }
 
 span:hover{
@@ -75,59 +127,41 @@ span:hover{
     background-color: black;
 }
 
-h3:hover{
-    text-shadow: 2px 2px 8px gray;
-    background-color: #E2D0BC;
-}
 
-#plus-grid {
-    margin-inline-start: auto;
-}
-
-input{
+input[type="text"]{
     border: none;
-    /* border-bottom: dotted gray 3px; */
-    outline: none;
     background: #E2D0BC;
     padding: 1px 0px 1px 10px;
     margin: 3px 4px 3px 4px;
+    width: 70%;
 }
 
-#list-header{
-    display: flex;
-    width: 300px;
-    background-color: #E2D0BC;
-}
-h3 {
-    flex: .5;
-    margin-inline-start: auto;
+.list-header input {
+    margin: 0px 0px;
 }
 
-#list-options {
-    margin-left: auto;
-    margin-inline-end: auto;
-}
 
 .list, .biglist {
     background-color: #EAE0D4;
-    width: 18vw;
-    height: 80vh;
+    width: 20vw;
+    height: 81vh;
     border: 3px solid black;
     padding: 5px;
     margin:3px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-wrap: anywhere;
 }
 
 
-#main-grid-space {
-    padding: 5px;
-}
 
 .biglist {
     order: 1;
-    flex: 1;
+    margin-left: 40px;
 }
 
 .list{
+    flex: 0 0 23%;
     flex-shrink: 1;
 }
 
@@ -135,8 +169,13 @@ h3 {
 #second-flex{
     width:80vw;
     height:80vh;
-    display: flex;
     order: 2;
-    flex: 4;
+    display: flex;
     flex-wrap: wrap;
+    flex-direction: row; 
+    flex-grow: 0;
+}
+
+#second-flex:has(.list:nth-child(5)) .list{
+    height: 40vh;
 }
